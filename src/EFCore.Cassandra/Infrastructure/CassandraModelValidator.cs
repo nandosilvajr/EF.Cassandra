@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -36,15 +37,10 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
                         CoreStrings.PropertyNotMapped(
                             entityType.DisplayName(), unmappedProperty.Name, unmappedProperty.ClrType.ShortDisplayName()));
                 }
-
-                if (!entityType.HasClrType())
-                {
-                    continue;
-                }
-
+                
                 var clrProperties = new HashSet<string>(StringComparer.Ordinal);
 
-                var runtimeProperties = entityType.AsEntityType().GetRuntimeProperties();
+                var runtimeProperties = entityType.GetRuntimeProperties();
 
                 clrProperties.UnionWith(
                     runtimeProperties.Values
@@ -74,19 +70,28 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
                         continue;
                     }
 
+                    bool? shouldBeOwned;
+
+                    Type FindCandidateNavigationPropertyType(PropertyInfo propertyInfo) => Dependencies.MemberClassifier.FindCandidateNavigationPropertyType(propertyInfo, conventionModel, out shouldBeOwned );
+
                     var targetType = FindCandidateNavigationPropertyType(actualProperty);
+                    
                     if (targetType == null)
                     {
                         continue;
                     }
 
-                    var isTargetWeakOrOwned
-                        = targetType != null
-                        && (conventionModel.HasEntityTypeWithDefiningNavigation(targetType)
-                            || conventionModel.IsOwned(targetType));
+
+                    var hasSharedClrType = conventionModel.FindEntityType(actualProperty.ToString())?.HasSharedClrType;
+                    
+
+                    bool isTargetWeakOrOwned = false;
+
+                    if (shouldBeOwned.HasValue)
+                        isTargetWeakOrOwned = shouldBeOwned.Value;
 
                     var elt= conventionModel.FindEntityType(targetType);
-                    if (elt != null && elt.IsUserDefinedType())
+                    if (elt != null && elt.IsInModel)
                     {
                         continue;
                     }
@@ -107,9 +112,6 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
                                 || (!targetType.Equals(entityType.ClrType)
                                     && (!entityType.IsInOwnershipPath(targetType)
                                         || (entityType.FindOwnership().PrincipalEntityType.ClrType.Equals(targetType)
-                                            && targetSequenceType == null))
-                                    && (!entityType.IsInDefinitionPath(targetType)
-                                        || (entityType.DefiningEntityType.ClrType.Equals(targetType)
                                             && targetSequenceType == null)))))
                         {
                             if (conventionModel.IsOwned(entityType.ClrType)
@@ -141,6 +143,5 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
                 }
             }
         }
-        private Type FindCandidateNavigationPropertyType(PropertyInfo propertyInfo) => Dependencies.MemberClassifier.FindCandidateNavigationPropertyType(propertyInfo);
     }
 }

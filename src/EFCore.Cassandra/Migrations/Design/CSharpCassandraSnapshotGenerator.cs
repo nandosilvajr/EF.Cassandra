@@ -70,7 +70,7 @@ namespace Microsoft.EntityFrameworkCore.Migrations.Design
                 {
                     GenerateBaseType(builderName, entityType.BaseType, stringBuilder);
                     GenerateProperties(builderName, entityType.GetDeclaredProperties(), stringBuilder);
-                    GenerateKeys(builderName, entityType.GetDeclaredKeys(), entityType.FindDeclaredPrimaryKey(), stringBuilder);
+                    GenerateKeys(builderName, entityType.GetDeclaredKeys(), entityType.FindDeclaredPrimaryKey() as IKey, stringBuilder);
                     GenerateEntityTypeAnnotations(builderName, entityType, stringBuilder);
                     GenerateCheckConstraints(builderName, entityType, stringBuilder);
                     if (ownerNavigation != null)
