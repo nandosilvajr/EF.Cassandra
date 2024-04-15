@@ -52,9 +52,6 @@ namespace EFCore.Cassandra.Benchmarks
             modelBuilder.Entity<Applicant>()
                 .Property(p => p.Id)
                 .HasColumnName("id");
-            modelBuilder.Entity<ApplicantAddress>()
-                .ToUserDefinedType("applicant_addr")
-                .HasNoKey();
         }
     }
 }

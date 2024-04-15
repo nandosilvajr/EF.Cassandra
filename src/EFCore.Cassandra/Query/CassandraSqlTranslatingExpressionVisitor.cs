@@ -20,7 +20,7 @@ namespace EFCore.Cassandra.Query
             _dependencies = dependencies;
         }
 
-        public override SqlExpression Translate(Expression expression)
+        public SqlExpression Translate(Expression expression)
         {
             return base.Translate(expression);
         }

@@ -1,19 +1,21 @@
 ﻿// Copyright (c) SimpleIdServer. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Microsoft.EntityFrameworkCore.Storage;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.EntityFrameworkCore.Storage;
+using EntityTypeExtensions = Microsoft.EntityFrameworkCore.EntityTypeExtensions;
 
-namespace Microsoft.EntityFrameworkCore.Cassandra.Query.Internal
+namespace EFCore.Cassandra.Query.Sql.Internal
 {
     public class CassandraQueryableMethodTranslatingExpressionVisitor : RelationalQueryableMethodTranslatingExpressionVisitor
     {

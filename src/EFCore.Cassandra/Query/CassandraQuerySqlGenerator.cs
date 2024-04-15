@@ -1,7 +1,6 @@
 ﻿// Copyright (c) SimpleIdServer. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 using EFCore.Cassandra;
-using Microsoft.EntityFrameworkCore.Cassandra.Query.Internal;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using EFCore.Cassandra.Query.Sql.Internal;
 
 namespace Microsoft.EntityFrameworkCore.Query
 {

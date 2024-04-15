@@ -14,12 +14,12 @@ namespace Microsoft.EntityFrameworkCore.Query
         {
         }
 
-        protected override SelectExpression ProcessSqlNullability(
+        protected SelectExpression ProcessSqlNullability(
             [NotNull] SelectExpression selectExpression,
             [NotNull] IReadOnlyDictionary<string, object> parametersValues,
             out bool canCache)
         {
-            return new CassandraSqlNullabilityProcessor(Dependencies, UseRelationalNulls).Process(selectExpression, parametersValues, out canCache);
+            return (SelectExpression)new CassandraSqlNullabilityProcessor(Dependencies, UseRelationalNulls).Process(selectExpression, parametersValues, out canCache);
         }
     }
 }

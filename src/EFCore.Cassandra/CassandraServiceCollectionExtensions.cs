@@ -5,8 +5,6 @@ using EFCore.Cassandra.Query.Sql.Internal;
 using Microsoft.EntityFrameworkCore.Cassandra.Infrastructure.Internal;
 using Microsoft.EntityFrameworkCore.Cassandra.Migrations;
 using Microsoft.EntityFrameworkCore.Cassandra.Migrations.Internal;
-using Microsoft.EntityFrameworkCore.Cassandra.Query.Internal;
-using Microsoft.EntityFrameworkCore.Cassandra.Query.Sql.Internal;
 using Microsoft.EntityFrameworkCore.Cassandra.Storage;
 using Microsoft.EntityFrameworkCore.Cassandra.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Cassandra.Update.Internal;

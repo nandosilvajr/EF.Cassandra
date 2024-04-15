@@ -1,12 +1,13 @@
 ﻿// Copyright (c) SimpleIdServer. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-using Microsoft.EntityFrameworkCore.Query;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
-namespace Microsoft.EntityFrameworkCore.Cassandra.Query.Internal
+namespace EFCore.Cassandra.Query.Sql.Internal
 {
     public class CassandraProjectionBindingExpressionVisitor : RelationalSqlTranslatingExpressionVisitor
     {
